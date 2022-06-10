@@ -2,23 +2,22 @@ import { Button } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { fetchUsers } from "../utils/api";
 import UserContext from "../context/UserContext";
-// import { useParams } from "react-router-dom";
+import Kudos from "./Kudos";
+import NewUser from "./PostUser";
+
 const Users = () => {
   const [users, setUser] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
   const { setUserContext } = useContext(UserContext);
-  //   const { username } = useParams();
+ 
   useEffect(() => {
     fetchUsers().then(({ users }) => {
       setUser(users);
+      setIsLoading(false);
     });
-  });
-  //   const handleKudosInc = () => {
-  //     useEffect(() => {
-  //       modifyUserByUsername(username).then(({ users }) => {
-  //         setUser(users);
-  //       });
-  //     });
-  //   };
+  }, []);
+
+  if(isLoading) { return <p>Loading...</p>}
 
   return (
     <>
@@ -30,7 +29,6 @@ const Users = () => {
               <li>
                 <h3>{user.username}</h3>
                 <img scr={user.avatar_url} alt={user.username} />
-                <Button>Kudo:{user.kudos}</Button>
                 <Button
                   onClick={() => {
                     setUserContext(user);
@@ -38,11 +36,13 @@ const Users = () => {
                 >
                   Sign-in
                 </Button>
+                <Kudos kudos={user.kudos} username={user.username}/>
               </li>
             </>
           );
         })}
       </ul>
+      <NewUser setUser={setUser}/>
     </>
   );
 };

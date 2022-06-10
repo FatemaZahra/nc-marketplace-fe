@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "../utils/api";
+import NewCategory from "./PostCategory";
 
 const Home = () => {
   const [currentCategories, setCurrentCategories] = useState([
     { category_name: "Electronics" },
   ]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchCategories().then(({ categories }) => {
       setCurrentCategories(categories);
+      setIsLoading(false)
     });
   }, []);
+
+  if(isLoading) { return <p>Loading...</p>}
 
   return (
     <>
@@ -26,6 +31,7 @@ const Home = () => {
           );
         })}
       </ul>
+      <NewCategory setCurrentCategories={setCurrentCategories} currentCategories={currentCategories}/>
     </>
   );
 };

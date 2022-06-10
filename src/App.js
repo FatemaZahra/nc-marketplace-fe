@@ -19,6 +19,7 @@ function App() {
     items_in_basket: 2,
     items_ordered: 1,
   });
+  
   return (
     <BrowserRouter>
       <div className="App">

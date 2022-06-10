@@ -44,33 +44,43 @@ export const fetchUserById = (username) => {
 };
 //PATCH /api/users/:username
 
-export const modifyUserByUsername = (username) => {
-  return myApi.patch(`/users/${username}`).then((res) => {
+export const modifyUserByUsername = (username, kudos_inc) => {
+  return myApi.patch(`/users/${username}`, {kudos_inc}).then((res) => {
     return res.data;
   });
 };
 
+//POST /api/categories
+export const postCategory = (category_name) => {
+  return myApi.post(`/categories`, {category_name}).then((res) => {
+    return res.data;
+  });
+};
+
+//POST /api/items
+export const postItem = (item_name, img_url, price, description, category_name) => {
+  return myApi.post(`/items`, {item_name, img_url, price, description, category_name}).then((res) => {
+    return res.data;
+  });
+};
+
+//POST /api/users
+export const postUser = ({username, avatar_url}) => {
+  console.log(username)
+  return myApi.post(`/users`, {username, avatar_url}).then((res) => {
+    return res.data;
+  });
+};
+
+
+
 //basket
 //order
 /*
-GET /api/categories
-
-POST /api/categories
-
-GET /api/items
-
-POST /api/items
 
 GET /api/items/:item_id
 
 DELETE /api/items/:item_id
-
-GET /api/users
-
-POST /api/users
-
-GET /api/users/:username
-
 
 
 GET /api/users/:username/basket
