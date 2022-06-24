@@ -6,13 +6,23 @@ const Nav = () => {
   const { userContext } = useContext(UserContext);
 
   return (
-    <nav>
-      <span>{userContext.username}</span>
-      <Link to="/">Home</Link>
-      <Link to="/users">Users</Link>
-      <Link to="/items">All Items</Link>
-      <Link to="/users/:username/basket">Basket</Link>
-      <Link to="/users/:username/orders">Orders</Link>
+    <nav className="NavBar">
+      <span className="NavIcon">{userContext.username}</span>
+      <Link to="/" className="NavIcon">
+        Home
+      </Link>
+      <Link to="/users" className="NavIcon">
+        Users
+      </Link>
+      <Link to="/items" className="NavIcon">
+        All Items
+      </Link>
+      <Link to={`/users/${userContext.username}/basket`} className="NavIcon">
+        Basket
+      </Link>
+      <Link to={`/users/${userContext.username}/orders`} className="NavIcon">
+        Previous-Orders
+      </Link>
     </nav>
   );
 };

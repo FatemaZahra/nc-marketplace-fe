@@ -45,34 +45,56 @@ export const fetchUserById = (username) => {
 //PATCH /api/users/:username
 
 export const modifyUserByUsername = (username, kudos_inc) => {
-  return myApi.patch(`/users/${username}`, {kudos_inc}).then((res) => {
+  return myApi.patch(`/users/${username}`, { kudos_inc }).then((res) => {
     return res.data;
   });
 };
 
 //POST /api/categories
 export const postCategory = (category_name) => {
-  return myApi.post(`/categories`, {category_name}).then((res) => {
+  return myApi.post(`/categories`, { category_name }).then((res) => {
     return res.data;
   });
 };
 
 //POST /api/items
-export const postItem = (item_name, img_url, price, description, category_name) => {
-  return myApi.post(`/items`, {item_name, img_url, price, description, category_name}).then((res) => {
-    return res.data;
-  });
+export const postItem = ({
+  item_name,
+  img_url,
+  price,
+  description,
+  category_name,
+}) => {
+  return myApi
+    .post(`/items`, { item_name, img_url, price, description, category_name })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 //POST /api/users
-export const postUser = ({username, avatar_url}) => {
-  console.log(username)
-  return myApi.post(`/users`, {username, avatar_url}).then((res) => {
+export const postUser = ({ username, avatar_url }) => {
+  console.log(username);
+  return myApi.post(`/users`, { username, avatar_url }).then((res) => {
     return res.data;
   });
 };
 
+//GET /api/users/:username/basket
+export const getBasketByUser = (username) => {
+  console.log(username);
+  return myApi.get(`./users/${username}/basket`).then((res) => {
+    return res.data;
+  });
+};
 
+//POST /api/users/:username/basket
+export const addToBasketByUser = (username, item_id) => {
+  console.log(item_id, "itemId");
+  return myApi.post(`./users/${username}/basket`, { item_id }).then((res) => {
+    return res.data;
+  });
+};
 
 //basket
 //order
@@ -83,9 +105,9 @@ GET /api/items/:item_id
 DELETE /api/items/:item_id
 
 
-GET /api/users/:username/basket
 
-POST /api/users/:username/basket
+
+
 
 DELETE /api/users/:username/basket
 

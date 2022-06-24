@@ -9,7 +9,7 @@ const Users = () => {
   const [users, setUser] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
   const { setUserContext } = useContext(UserContext);
- 
+
   useEffect(() => {
     fetchUsers().then(({ users }) => {
       setUser(users);
@@ -17,7 +17,9 @@ const Users = () => {
     });
   }, []);
 
-  if(isLoading) { return <p>Loading...</p>}
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -26,7 +28,7 @@ const Users = () => {
         {users.map((user) => {
           return (
             <>
-              <li>
+              <li key={user.username}>
                 <h3>{user.username}</h3>
                 <img scr={user.avatar_url} alt={user.username} />
                 <Button
@@ -36,13 +38,13 @@ const Users = () => {
                 >
                   Sign-in
                 </Button>
-                <Kudos kudos={user.kudos} username={user.username}/>
+                <Kudos kudos={user.kudos} username={user.username} />
               </li>
             </>
           );
         })}
       </ul>
-      <NewUser setUser={setUser}/>
+      <NewUser setUser={setUser} />
     </>
   );
 };
